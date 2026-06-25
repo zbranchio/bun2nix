@@ -62,7 +62,6 @@ in
                 ;
 
               name = "bun2nix-application-startup";
-              excludeShellChecks = [ "SC2148" ];
               text = startScript;
               runtimeInputs = [
                 pkgs.bun
