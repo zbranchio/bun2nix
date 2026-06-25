@@ -24,6 +24,7 @@ in
     {
       fetchBunDeps.extractPackage = pkgs.writeShellApplication {
         name = "extract-bun-package";
+        excludeShellChecks = [ "SC2148" ];
         runtimeInputs = [
           pkgs.libarchive
         ];
