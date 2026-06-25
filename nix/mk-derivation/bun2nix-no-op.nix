@@ -22,9 +22,10 @@ in
   config.perSystem =
     { pkgs, ... }:
     {
-      mkDerivation.bun2nixNoOp = pkgs.writeShellApplication {
-        name = "bun2nix";
-        text = "";
-      };
+      # PATCHED (zbranchio fork for norris): the upstream no-op uses `writeShellApplication { text = "";
+      # }`, whose shellcheck pass fails with SC2148 (no shebang) on Linux builders (CI), blocking the
+      # workspace build. `writeShellScriptBin` produces the same no-op `bun2nix` binary with NO
+      # shellcheck. Upstream 2.1.0 (latest tag) still has text="".
+      mkDerivation.bun2nixNoOp = pkgs.writeShellScriptBin "bun2nix" "";
     };
 }
