@@ -40,6 +40,10 @@ in
             else
               [
                 "--linker=isolated"
+                # PATCHED (norris fork): force the symlink backend on Linux too. Upstream omits it here,
+                # so bun defaults to HARDLINK, which fails EPERM on overlay2 filesystems (Docker/GitLab
+                # CI). Symlink is filesystem-agnostic and is what the darwin branch already uses.
+                "--backend=symlink"
               ];
         };
       } ./hook.sh;
